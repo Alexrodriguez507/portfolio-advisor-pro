@@ -1,19 +1,22 @@
-import os
-import dj_database_url
 from pathlib import Path
+import os
 import environ
+import dj_database_url
 
-# Inicializa entorno
-env = environ.Env(DEBUG=(bool, False))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Inicializa entorno y lee .env
+env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+# Configura ALLOWED_HOSTS desde entorno
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 # Seguridad
 SECRET_KEY = env('SECRET_KEY', default='unsafe-secret-key')
 DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=["localhost", "127.0.0.1"])
 
 # Aplicaciones
 INSTALLED_APPS = [
