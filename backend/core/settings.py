@@ -5,14 +5,15 @@ import environ
 
 # Inicializa entorno
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env(os.path.join(Path(__file__).resolve().parent.parent, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad
 SECRET_KEY = env('SECRET_KEY', default='unsafe-secret-key')
 DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=["localhost", "127.0.0.1"])
 
 # Aplicaciones
 INSTALLED_APPS = [
